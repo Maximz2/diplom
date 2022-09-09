@@ -30,5 +30,5 @@ jobs:
           file: ./src/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/diplom:${{steps.tag.outputs.tag}}
-          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB-USERNAME }}/diplom:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB-USERNAME }}/diplom:buildcache,mode=max
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/diplom:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/diplom:buildcache,mode=max
