@@ -14,8 +14,6 @@ psycopg2-binary = "^2.9.3"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.20.0"
-
-[tool.poetry.group.dev.dependencies]
 ansible-vault-win = "^1.0.0"
 
 [build-system]
