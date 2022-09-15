@@ -48,7 +48,7 @@ jobs:
         with:
           strip_v: true
       - name: Render template
-        run:
+        run: |
           echo "$VAULT_PASSWORD" > /tmp/.vault_pass.txt
           ansible-vault decrypt ./deploy/env
           ansible-vault decrypt ./deploy/docker-compose.yaml
