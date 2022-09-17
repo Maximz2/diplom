@@ -51,7 +51,7 @@ jobs:
           --user 0 \
           --rm \
           --env-file $(pwd)/deploy/.env \
-          --entrypoint '' \
+          --entrypoint  '' \
           -v $(pwd)/deploy/nginx/static/:/opt/todolist/static/:rw \
           ${{ secrets.DOCKER_HUB_USERNAME }}/diplom:latest \
           python manage.py collectstatic -c --no-input
