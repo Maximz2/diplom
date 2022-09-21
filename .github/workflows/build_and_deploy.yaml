@@ -41,8 +41,7 @@ jobs:
       - name: Data assembly
         run: |
           echo "${{ secrets.VAULT_PASSWORD }}" > /tmp/.vault_pass.txt
-          ansible-vault decrypt deploy/env --output deploy/.env
-          rm deploy/env
+          ansible-vault decrypt deploy/.env --output deploy/.env
           ptintf "\nDOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}" >> deploy/.env
       - name: Collect Static
         run: |
