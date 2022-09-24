@@ -48,7 +48,7 @@ jobs:
         run: |
           echo "$VAULT_PASSWORD" > /tmp/.vault_pass.txt
           ansible-vault decrypt ./deploy/.env
-          mv deploy/.env deploy/.env
+          mv deploy/env /.env
           printf "\nTAG_NAME=${{steps.tag.outputs.tag}}" >> deploy/.env
       - name: Collect Static
         run: |
