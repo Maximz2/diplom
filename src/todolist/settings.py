@@ -15,7 +15,7 @@ from pathlib import Path
 import environ
 
 env = environ.Env(
-    # set casting, default value
+    # set castng, default value
     DEBUG=(bool, False)
 )
 
