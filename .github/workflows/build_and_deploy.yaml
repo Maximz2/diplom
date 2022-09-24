@@ -3,7 +3,7 @@ name: Build and deploy action
 on:
   push:
     tags:
-      - '*'
+      - l*
 jobs:
   build:
     runs-on: ubuntu-22.04
