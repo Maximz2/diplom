@@ -3,7 +3,7 @@ name: Build and deploy action
 on:
   push:
     tags:
-      - l*
+      - v*
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -21,7 +21,7 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       - name: Build and push
-        uses: docker/build-push-action@v3
+        uses: docke r/build-push-action@v3
         with:
           context: .
           push: true
