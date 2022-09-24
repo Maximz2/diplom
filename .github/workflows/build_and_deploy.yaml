@@ -35,15 +35,21 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       ANSIBLE_VAULT_PASSWORD_FILE: /tmp/.vault_pass.txt
+      VAULT_PASSWORD: ${{ secrets.VAULT_PASSWORD }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Data assembly
+      - name: Get tag
+        id: tag
+        uses: dawidd6/action-get-tag@v1
+        with:
+          strip_v: true
+      - name: Render template
         run: |
-          echo "${{ secrets.VAULT_PASSWORD }}" > /tmp/.vault_pass.txt
-          ansible-vault decrypt deploy/env --output deploy/.env
-          rm deploy/env
-          ptintf "\nDOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}" >> deploy/.env
+          echo "$VAULT_PASSWORD" > /tmp/.vault_pass.txt
+          ansible-vault decrypt ./deploy/.env
+          mv deploy/.env deploy/.env
+          printf "\nTAG_NAME=${{steps.tag.outputs.tag}}" >> deploy/.env
       - name: Collect Static
         run: |
           cp deploy/.env .env
