@@ -6,7 +6,7 @@ services:
     image: postgres:12.4-alpine
     restart: always
     env_file:
-      - ..env
+      - .env
     volumes:
       - pg_data_todolist:/var/lib/postgresql/data
     healthcheck:
