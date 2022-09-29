@@ -2,9 +2,6 @@ name: Build and deploy action
 
 on:
   push:
-    branches:
-      - master
-      - 'l*'
     tags:
       - v*
 jobs:
