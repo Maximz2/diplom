@@ -20,7 +20,7 @@ services:
       - backend_nw
 
   api:
-    image: ${DOCKER_HUB_USERNAME}/diplom:latest
+    image: maximz2/diplom:latest
     restart: always
     env_file:
       - .env
