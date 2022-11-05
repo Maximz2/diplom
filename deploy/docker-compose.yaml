@@ -41,8 +41,24 @@ services:
       - backend_nw
       - frontend_nw
 
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_HOST: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: python3 manage.py runbot
+    networks:
+      - backend_nw
+
   frontend:
-    image: sermalenk/skypro-front:lesson-36
+    image: sermalenk/skypro-front:lesson-38
     restart: always
     ports:
       - "80:80"
