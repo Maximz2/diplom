@@ -42,12 +42,10 @@ services:
       - frontend_nw
 
   bot:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image:  maximz2/diplom:latest
     restart: always
     env_file:
-      -  .env
+      - .env
     environment:
       POSTGRES_HOST: postgres
     depends_on:
