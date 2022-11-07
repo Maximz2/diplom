@@ -47,7 +47,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     env_file:
-      - src/.env
+      -  .env
     environment:
       POSTGRES_HOST: postgres
     depends_on:
