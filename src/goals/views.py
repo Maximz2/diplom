@@ -17,7 +17,7 @@ from goals.serializers import (BoardCreateSerializer, BoardListSerializer,
 
 
 class BoardCreateView(generics.CreateAPIView):
-    permission_classes = [BoardPermission]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = BoardCreateSerializer
 
 
@@ -52,7 +52,7 @@ class BoardView(generics.RetrieveUpdateDestroyAPIView):
             instance.is_deleted = True
             instance.save(update_fields=('is_deleted',))
             instance.categories.update(is_deleted=True)
-            Goal.objects.filter(category__board=instance).update(
+            Goal.objects.select_related('category').filter(category__board=instance).update(
                 status=Goal.Status.archived
             )
         return instance
