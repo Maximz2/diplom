@@ -1,2 +1,5 @@
 .env
 Dockerfile
+src/static
+src/**/tests
+src/**/tests*.py
