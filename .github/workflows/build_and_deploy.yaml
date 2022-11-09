@@ -1,13 +1,37 @@
-name: Build and deploy action
+name: Test, Build and deploy action
 
 on:
   push:
     tags:
       - v*
+    branches:
+      - '*'
 
 jobs:
 
+  tests:
+    runs-on: ubuntu-20.04
+    env:
+      DEBUG: False
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: postgres
+      SECRET_KEY: 'you-will-never-guess'
+      VK_OAUTH2_KEY: 1234567890
+      VK_OAUTH2_SECRET: 1234567890
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Create env file and bild image
+        run: |
+          env > .env
+          docker-compose build
+      - name: Run tests
+        run: |
+          docker-compose run --rm api python3 manage.py test
+
   build:
+    if: startsWith(github.event.ref, 'refs/tags/v')
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
@@ -79,8 +103,8 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd diplom
+            docker compose pull
             docker compose up -d
-
       - name: Clear after deploy
         if: always()
         uses: appleboy/ssh-action@master

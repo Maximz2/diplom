@@ -22,7 +22,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: src/Dockerfile
+      dockerfile: Dockerfile
     restart: always
     env_file:
       - src/.env
@@ -35,7 +35,7 @@ services:
     ports:
       - "8000:8000"
     healthcheck:
-      test: curl -sS http://127.0.0.1:8000/ping/ || exit 1
+      test: python3 -c 'import http.client;http.client.HTTPConnection("127.0.0.1:8000", timeout=1).request("GET", "/ping/")'
       interval: 3s
       timeout: 3s
       retries: 3
@@ -45,8 +45,24 @@ services:
     volumes:
       - ./src/:/opt/todolist
 
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - src/.env
+    environment:
+      POSTGRES_HOST: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: python3 manage.py runbot
+    networks:
+      - backend_nw
+
   frontend:
-    image: sermalenk/skypro-front:lesson-35
+    image: sermalenk/skypro-front:lesson-38
     restart: always
     ports:
       - "80:80"
