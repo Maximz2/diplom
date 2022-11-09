@@ -196,4 +196,4 @@ class CategoryTestCase(APITestCase):
 
         self.client.force_login(user_3)
         response = self.client.post(url, {'title': 'category title_user3', 'is_deleted': False, 'board': board.id})
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
