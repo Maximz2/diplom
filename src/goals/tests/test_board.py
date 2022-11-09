@@ -163,37 +163,37 @@ class CategoryTestCase(APITestCase):
             }
         )
 
-#     def test_add_category_board(self):
-#         url = reverse('create-category')
-#
-#         user_1 = User.objects.create_user(
-#             username='test_user_1',
-#             password='test_password_1'
-#         )
-#
-#         user_2 = User.objects.create_user(
-#             username='test_user_2',
-#             password='test_password_2'
-#         )
-#
-#         user_3 = User.objects.create_user(
-#             username='test_user_3',
-#             password='test_password_3'
-#         )
-#
-#         board = Board.objects.create(title='board_title_test')
-#         BoardParticipant.objects.create(board=board, user=user_1, role=BoardParticipant.Role.owner)
-#         BoardParticipant.objects.create(board=board, user=user_2, role=BoardParticipant.Role.writer)
-#         BoardParticipant.objects.create(board=board, user=user_3, role=BoardParticipant.Role.reader)
-#
-#         self.client.force_login(user_1)
-#         response = self.client.post(url, {'title': 'category title_user1', 'is_deleted': False, 'board': board.id})
-#         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-#
-#         self.client.force_login(user_2)
-#         response = self.client.post(url, {'title': 'category title_user2', 'is_deleted': False, 'board': board.id})
-#         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-#
-#         self.client.force_login(user_3)
-#         response = self.client.post(url, {'title': 'category title_user3', 'is_deleted': False, 'board': board.id})
-#         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+    def test_add_category_board(self):
+        url = reverse('create-category')
+
+        user_1 = User.objects.create_user(
+            username='test_user_1',
+            password='test_password_1'
+        )
+
+        user_2 = User.objects.create_user(
+            username='test_user_2',
+            password='test_password_2'
+        )
+
+        user_3 = User.objects.create_user(
+            username='test_user_3',
+            password='test_password_3'
+        )
+
+        board = Board.objects.create(title='board_title_test')
+        BoardParticipant.objects.create(board=board, user=user_1, role=BoardParticipant.Role.owner)
+        BoardParticipant.objects.create(board=board, user=user_2, role=BoardParticipant.Role.writer)
+        BoardParticipant.objects.create(board=board, user=user_3, role=BoardParticipant.Role.reader)
+
+        self.client.force_login(user_1)
+        response = self.client.post(url, {'title': 'category title_user1', 'is_deleted': False, 'board': board.id})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        self.client.force_login(user_2)
+        response = self.client.post(url, {'title': 'category title_user2', 'is_deleted': False, 'board': board.id})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        self.client.force_login(user_3)
+        response = self.client.post(url, {'title': 'category title_user3', 'is_deleted': False, 'board': board.id})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
